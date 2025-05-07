@@ -1,8 +1,11 @@
-import { useState } from "react";
 import InputBox from "./InputBox";
 
-const Description = () => {
-  const [description, setDescription] = useState("");
+type DescriptionProps = {
+  description: string;
+  setDescription: (value: string) => void;
+};
+
+const Description = ({ description, setDescription }: DescriptionProps) => {
   return (
     <div>
       <InputBox
