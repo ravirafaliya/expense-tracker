@@ -21,7 +21,7 @@ const TransactionHistory = ({
       <h2 className="text-3xl font-semibold text-[var(--accent-primary-text)] mb-4 text-center">
         Transaction History
       </h2>
-      <table className="text-center items-center justify-center w-full">
+      <table className="text-center items-center justify-center w-full border-separate border-spacing-y-2">
         <thead>
           <tr className="text-sm text-[var(--accent-secondary-text)] bg-[var(--accent-secondary-bg)] uppercase ">
             <th className="px-4 py-2 bg-amber-50">Type</th>
@@ -34,8 +34,20 @@ const TransactionHistory = ({
         <tbody>
           {transactions.map((transaction, index) => (
             <tr key={index} className="text-[(--text-primary)]">
-              <td className="px-4 py-3">{transaction.type}</td>
-              <td className="px-4 py-3">₹{transaction.amount}</td>
+              <td
+                className={`${
+                  transaction.type === "Expense" ? "bg-red-500" : "bg-green-500"
+                } w-[70%] m-2 rounded-lg text-white px-2 py-1  inline-block`}
+              >
+                {transaction.type}
+              </td>
+              <td
+                className={`px-4 py-3 font-semibold tracking-wide ${
+                  transaction.type === "Expense"
+                    ? "text-red-600"
+                    : "text-green-600"
+                }`}
+              >{`₹${transaction.amount}`}</td>
               <td className="px-4 py-3 capitalize">{transaction.category}</td>
               <td className="px-4 py-3">{transaction.description}</td>
               <td className="px-4 py-3 flex justify-center items-center gap-4 text-xl">

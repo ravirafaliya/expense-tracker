@@ -1,7 +1,7 @@
 import AddTransaction from "../layouts/AddTransaction";
 import TransactionHistory from "../layouts/TransactionHistory";
 import Header from "../layouts/Header";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Transaction = {
   type: string;
@@ -12,6 +12,7 @@ type Transaction = {
 
 const Home = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const isInitialMount = useRef(true);
 
   const handleAddTransaction = (newTransaction: Transaction) => {
     setTransactions([...transactions, newTransaction]);
@@ -23,6 +24,22 @@ const Home = () => {
     });
     setTransactions(updatedTransactions);
   };
+
+  useEffect(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    if (storedTransactions) {
+      setTransactions(JSON.parse(storedTransactions));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
 
   return (
     <>
