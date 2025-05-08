@@ -16,6 +16,14 @@ const Home = () => {
   const handleAddTransaction = (newTransaction: Transaction) => {
     setTransactions([...transactions, newTransaction]);
   };
+
+  const handleDeleteButton = (indexToDelete: number): void => {
+    const updatedTransactions = transactions.filter((_, index: number) => {
+      return index !== indexToDelete;
+    });
+    setTransactions(updatedTransactions);
+  };
+
   return (
     <>
       <header>
@@ -26,8 +34,14 @@ const Home = () => {
           <AddTransaction onAddTransaction={handleAddTransaction} />
         </section>
         <section className="w-1/2 p-4">
-          <TransactionHistory transactions={transactions} />
+          {/* <TransactionHistory transactions={transactions} /> */}
         </section>
+      </div>
+      <div className="p-2">
+        <TransactionHistory
+          transactions={transactions}
+          onDeleteTransaction={handleDeleteButton}
+        />
       </div>
     </>
   );
