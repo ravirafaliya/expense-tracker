@@ -14,31 +14,48 @@ type AddTransactionProps = {
 };
 const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
   const [inputValue, setInputValue] = useState("");
-  const [incomeType, setIncomeType] = useState("income");
-  const [expenseType, setExpenseType] = useState("expense");
+  const [incomeType, setIncomeType] = useState("salary");
+  const [expenseType, setExpenseType] = useState("food");
   const [incomeButtonClicked, setIncomeButtonClicked] = useState(false);
   const [expenseButtonClicked, setExpenseButtonClicked] = useState(false);
   const [description, setDescription] = useState("");
 
   const handleIncomeClick = () => {
-    console.log("Income clicked");
+    // console.log("Income clicked");
     setIncomeButtonClicked(true);
     setExpenseButtonClicked(false);
   };
 
   const handleExpenseClick = () => {
-    console.log("Expense clicked");
+    // console.log("Expense clicked");
     setExpenseButtonClicked(true);
     setIncomeButtonClicked(false);
   };
 
   const handleAddTransaction = () => {
-    console.log("Add Transaction clicked");
-    console.log("Input Value:", inputValue);
-    console.log("Income Type:", incomeType);
-    console.log("Expense Type:", expenseType);
+    // console.log("Add Transaction clicked");
+    // console.log("Input Value:", inputValue);
+    // console.log("Income Type:", incomeType);
+    // console.log("Expense Type:", expenseType);
 
     const transactionDetails = () => {
+      if (!incomeButtonClicked && !expenseButtonClicked) {
+        alert("Please select a transaction type - 'Income' or 'Expense'");
+        return;
+      }
+      if (!inputValue) {
+        alert("Please enter a valid amount");
+        return;
+      }
+      if (Number(inputValue) <= 0) {
+        alert("Please enter a positive number for the amount");
+        return;
+      }
+      if (!description) {
+        alert("Please enter a description");
+        return;
+      }
+
       if (incomeButtonClicked) {
         return {
           type: "Income",
@@ -57,16 +74,12 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
     };
 
     const details = transactionDetails();
-
-    if (!details) {
-      console.warn("No transaction type selected.");
-      return;
-    }
+    if (!details) return;
 
     onAddTransaction(details);
     setInputValue("");
-    setIncomeType("");
-    setExpenseType("");
+    setIncomeType("salary");
+    setExpenseType("food");
     setIncomeButtonClicked(false);
     setExpenseButtonClicked(false);
     setDescription("");
