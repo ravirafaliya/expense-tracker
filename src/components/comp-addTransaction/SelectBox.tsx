@@ -7,7 +7,7 @@ type SelectProps = {
 const SelectBox = ({ options, value, onChange }: SelectProps) => {
   const defaultValue = value ?? options[0];
   return (
-    <div className="relative inline-block w-full">
+    <div className="relative inline-block w-full ">
       <select
         className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-[var(--border-primary)] focus:border-[var(--border-primary)]"
         value={defaultValue}

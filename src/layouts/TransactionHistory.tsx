@@ -83,7 +83,7 @@ const TransactionHistory = ({
                   {showEditButton && (
                     <button
                       onClick={() => handleEditButtonClick(transaction, index)}
-                      className="text-green-950 hover:text-green-500 transition duration-500"
+                      className="text-green-950 cursor-pointer hover:text-green-500 transition duration-500"
                     >
                       <MdEdit />
                     </button>
@@ -91,7 +91,7 @@ const TransactionHistory = ({
 
                   <button
                     onClick={() => onDeleteTransaction(index)}
-                    className="text-red-800 hover:text-red-500 transition duration-500"
+                    className="text-red-800 cursor-pointer hover:text-red-500 transition duration-500"
                   >
                     <MdDelete />
                   </button>

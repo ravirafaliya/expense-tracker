@@ -10,7 +10,7 @@ const Reset = ({ icon }: ResetProps) => {
           localStorage.removeItem("transactions");
           window.location.reload();
         }}
-        className={`text-white !flex !justify-center items-center  px-1 py-1 !text-center bg-red-500 hover:bg-red-600 !hover:font-semibold shadow-3xl rounded-full !text-2xl !font-normal transition-colors duration-300`}
+        className={`text-white cursor-pointer !flex !justify-center items-center  px-1 py-1 !text-center bg-red-500 hover:bg-red-600 !hover:font-semibold shadow-3xl rounded-full !text-2xl !font-normal transition-colors duration-300`}
       >
         {icon}
       </button>
