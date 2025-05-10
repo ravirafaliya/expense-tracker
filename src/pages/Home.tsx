@@ -3,6 +3,7 @@ import TransactionHistory from "../layouts/TransactionHistory";
 import Header from "../layouts/Header";
 import { useEffect, useRef, useState } from "react";
 import { EditProvider } from "../context/EditContext";
+import TransactionDetails from "../components/TransactionDetails";
 
 type Transaction = {
   type: string;
@@ -48,13 +49,13 @@ const Home = () => {
         <Header />
       </header>
       <EditProvider>
-        <section>
-          <div className="flex">
-            <section className="w-1/2 p-4">
+        <section className="p-4">
+          <div className="flex flex-col lg:flex-row">
+            <section className="w-full lg:w-1/2 p-4">
               <AddTransaction onAddTransaction={handleAddTransaction} />
             </section>
-            <section className="w-1/2 p-4">
-              {/* <TransactionHistory transactions={transactions} /> */}
+            <section className="w-full lg:w-1/2 p-4">
+              <TransactionDetails />
             </section>
           </div>
           <div className="p-2">

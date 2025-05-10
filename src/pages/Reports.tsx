@@ -50,14 +50,14 @@ const Report = () => {
         <h2 className="text-2xl font-semibold text-[var(--accent-primary-text)] mb-4 text-center">
           Financial Report
         </h2>
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {transactions.length === 0 && (
             <p className="text-center text-[var(--accent-primary-text)] m-4">
               No transactions available.
             </p>
           )}
 
-          {transactions.length && (
+          {transactions.length > 0 && (
             <div className="flex-1 bg-[var(--accent-primary-bg)] shadow-lg rounded-lg p-4">
               <ResponsiveContainer width="100%" height={400}>
                 <PieChart>
@@ -75,8 +75,7 @@ const Report = () => {
                         Expense: "💸",
                         Balance: "🧾",
                       };
-                      return `${iconMap[entry.name]} ${entry.name} 
-                    `;
+                      return `${iconMap[entry.name]} ${entry.name}`;
                     }}
                   >
                     {data.map((_, index) => (
@@ -101,7 +100,7 @@ const Report = () => {
             </div>
           )}
 
-          <div className="flex-1 grid grid-cols-1 gap-4">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
               <p className="text-lg font-semibold text-gray-600">
                 📊 Total Transactions
