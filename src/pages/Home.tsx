@@ -61,6 +61,7 @@ const Home = () => {
             <TransactionHistory
               transactions={transactions}
               onDeleteTransaction={handleDeleteButton}
+              showEditButton={true}
             />
           </div>
         </section>

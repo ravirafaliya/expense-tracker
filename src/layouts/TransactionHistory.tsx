@@ -12,11 +12,13 @@ type Transaction = {
 type TransactionHistoryProps = {
   transactions: Transaction[];
   onDeleteTransaction: (index: number) => void;
+  showEditButton?: boolean;
 };
 
 const TransactionHistory = ({
   transactions,
   onDeleteTransaction,
+  showEditButton = false,
 }: TransactionHistoryProps) => {
   const editTransaction = useContext(EditContext);
   console.log(editTransaction);
@@ -24,6 +26,7 @@ const TransactionHistory = ({
   const handleEditButtonClick = (transaction: Transaction) => {
     editTransaction.setItem(transaction);
   };
+
   return (
     <div className="bg-[var(--bg-secondary)] shadow-lg rounded-xl p-6 mb-6">
       <h2 className="text-3xl font-semibold text-[var(--accent-primary-text)] mb-4 text-center">
@@ -63,12 +66,14 @@ const TransactionHistory = ({
               <td className="px-4 py-3 capitalize">{transaction.category}</td>
               <td className="px-4 py-3">{transaction.description}</td>
               <td className="px-4 py-3 flex justify-center items-center gap-4 text-xl">
-                <button
-                  onClick={() => handleEditButtonClick(transaction)}
-                  className="text-green-950 hover:text-green-500 transition duration-500"
-                >
-                  <MdEdit />
-                </button>
+                {showEditButton && (
+                  <button
+                    onClick={() => handleEditButtonClick(transaction)}
+                    className="text-green-950 hover:text-green-500 transition duration-500"
+                  >
+                    <MdEdit />
+                  </button>
+                )}
 
                 <button
                   onClick={() => onDeleteTransaction(index)}

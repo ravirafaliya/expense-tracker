@@ -33,6 +33,7 @@ const Transaction = () => {
         <TransactionHistory
           transactions={transactions}
           onDeleteTransaction={handleDeleteButton}
+          showEditButton={false}
         />
       </div>
     </div>
