@@ -2,6 +2,7 @@ import AddTransaction from "../layouts/AddTransaction";
 import TransactionHistory from "../layouts/TransactionHistory";
 import Header from "../layouts/Header";
 import { useEffect, useRef, useState } from "react";
+import { EditProvider } from "../context/EditContext";
 
 type Transaction = {
   type: string;
@@ -46,20 +47,24 @@ const Home = () => {
       <header>
         <Header />
       </header>
-      <div className="flex">
-        <section className="w-1/2 p-4">
-          <AddTransaction onAddTransaction={handleAddTransaction} />
+      <EditProvider>
+        <section>
+          <div className="flex">
+            <section className="w-1/2 p-4">
+              <AddTransaction onAddTransaction={handleAddTransaction} />
+            </section>
+            <section className="w-1/2 p-4">
+              {/* <TransactionHistory transactions={transactions} /> */}
+            </section>
+          </div>
+          <div className="p-2">
+            <TransactionHistory
+              transactions={transactions}
+              onDeleteTransaction={handleDeleteButton}
+            />
+          </div>
         </section>
-        <section className="w-1/2 p-4">
-          {/* <TransactionHistory transactions={transactions} /> */}
-        </section>
-      </div>
-      <div className="p-2">
-        <TransactionHistory
-          transactions={transactions}
-          onDeleteTransaction={handleDeleteButton}
-        />
-      </div>
+      </EditProvider>
     </>
   );
 };

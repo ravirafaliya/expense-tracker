@@ -1,4 +1,6 @@
 import { MdEdit, MdDelete } from "react-icons/md";
+import { useContext } from "react";
+import { EditContext } from "../context/EditContext";
 
 type Transaction = {
   type: string;
@@ -16,6 +18,12 @@ const TransactionHistory = ({
   transactions,
   onDeleteTransaction,
 }: TransactionHistoryProps) => {
+  const editTransaction = useContext(EditContext);
+  console.log(editTransaction);
+
+  const handleEditButtonClick = (transaction: Transaction) => {
+    editTransaction.setItem(transaction);
+  };
   return (
     <div className="bg-[var(--bg-secondary)] shadow-lg rounded-xl p-6 mb-6">
       <h2 className="text-3xl font-semibold text-[var(--accent-primary-text)] mb-4 text-center">
@@ -34,12 +42,16 @@ const TransactionHistory = ({
         <tbody>
           {transactions.map((transaction, index) => (
             <tr key={index} className="text-[(--text-primary)]">
-              <td
-                className={`${
-                  transaction.type === "Expense" ? "bg-red-500" : "bg-green-500"
-                } w-[70%] m-2 rounded-lg text-white px-2 py-1  inline-block`}
-              >
-                {transaction.type}
+              <td>
+                <button
+                  className={`${
+                    transaction.type === "Expense"
+                      ? "bg-red-500"
+                      : "bg-green-500"
+                  } w-[70%] m-2 rounded-lg text-white px-2 py-1 cursor-pointer font-semibold text-sm`}
+                >
+                  {transaction.type}
+                </button>
               </td>
               <td
                 className={`px-4 py-3 font-semibold tracking-wide ${
@@ -52,7 +64,7 @@ const TransactionHistory = ({
               <td className="px-4 py-3">{transaction.description}</td>
               <td className="px-4 py-3 flex justify-center items-center gap-4 text-xl">
                 <button
-                  onClick={() => alert("Edit Transaction")}
+                  onClick={() => handleEditButtonClick(transaction)}
                   className="text-green-950 hover:text-green-500 transition duration-500"
                 >
                   <MdEdit />

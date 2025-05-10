@@ -3,6 +3,8 @@ import Button from "../components/Button";
 import InputBox from "../components/comp-addTransaction/InputBox";
 import SelectBox from "../components/comp-addTransaction/SelectBox";
 import Description from "../components/comp-addTransaction/Description";
+import { useContext, useEffect } from "react";
+import { EditContext } from "../context/EditContext";
 
 type AddTransactionProps = {
   onAddTransaction: (transaction: {
@@ -12,6 +14,7 @@ type AddTransactionProps = {
     category: string;
   }) => void;
 };
+
 const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
   const [inputValue, setInputValue] = useState("");
   const [incomeType, setIncomeType] = useState("salary");
@@ -19,6 +22,8 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
   const [incomeButtonClicked, setIncomeButtonClicked] = useState(false);
   const [expenseButtonClicked, setExpenseButtonClicked] = useState(false);
   const [description, setDescription] = useState("");
+
+  const { item } = useContext(EditContext);
 
   const handleIncomeClick = () => {
     // console.log("Income clicked");
@@ -84,6 +89,24 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
     setExpenseButtonClicked(false);
     setDescription("");
   };
+
+  useEffect(() => {
+    if (item) {
+      setInputValue(item.amount);
+      setDescription(item.description);
+
+      if (item.type === "Income") {
+        setIncomeButtonClicked(true);
+        setIncomeType(item.category);
+        setExpenseButtonClicked(false);
+      } else {
+        setExpenseButtonClicked(true);
+        setExpenseType(item.category);
+        setIncomeButtonClicked(false);
+      }
+    }
+  }, [item]);
+
   return (
     <>
       <div className="w-full bg-[var(--bg-secondary)] flex flex-col items-center justify-center shadow-lg rounded-lg">
