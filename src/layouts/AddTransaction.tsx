@@ -107,6 +107,77 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
     }
   }, [item]);
 
+  const selectCategoryFields = () => {
+    switch (true) {
+      case incomeButtonClicked:
+        return (
+          <>
+            <SelectBox
+              options={[
+                "Salary",
+                "Freelance",
+                "Business",
+                "Rental Income",
+                "Investment",
+                "Bank Interest",
+                "Gifts",
+                "Others",
+              ]}
+              value={incomeType}
+              onChange={(e) => setIncomeType(e.target.value)}
+            />
+            <Description
+              description={description}
+              setDescription={setDescription}
+            />
+          </>
+        );
+
+      case expenseButtonClicked:
+        return (
+          <>
+            <SelectBox
+              options={[
+                "Food",
+                "Transport",
+                "Rent",
+                "Utilities",
+                "Entertainment",
+                "Health",
+                "Education",
+                "Shopping",
+              ]}
+              value={expenseType}
+              onChange={(e) => setExpenseType(e.target.value)}
+            />
+            <Description
+              description={description}
+              setDescription={setDescription}
+            />
+          </>
+        );
+
+      default:
+        return (
+          <>
+            <SelectBox
+              options={["Select Category"]}
+              value={incomeButtonClicked ? incomeType : expenseType}
+              onChange={(e) =>
+                incomeButtonClicked
+                  ? setIncomeType(e.target.value)
+                  : setExpenseType(e.target.value)
+              }
+            />
+            <Description
+              description={description}
+              setDescription={setDescription}
+            />
+          </>
+        );
+    }
+  };
+
   return (
     <>
       <div className="w-full bg-[var(--bg-secondary)] flex flex-col items-center justify-center shadow-lg rounded-lg">
@@ -134,52 +205,7 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
             onChange={(e) => setInputValue(e.target.value)}
           />
         </div>
-        <div>
-          {incomeButtonClicked && (
-            <>
-              <SelectBox
-                options={[
-                  "Salary",
-                  "Freelance",
-                  "Business",
-                  "rental_Income",
-                  "Investment",
-                  "Bank Interest",
-                  "Gifts",
-                  "Others",
-                ]}
-                value={incomeType}
-                onChange={(e) => setIncomeType(e.target.value)}
-              />
-              <Description
-                description={description}
-                setDescription={setDescription}
-              />
-            </>
-          )}
-          {expenseButtonClicked && (
-            <>
-              <SelectBox
-                options={[
-                  "food",
-                  "transport",
-                  "rent",
-                  "utilities",
-                  "entertainment",
-                  "health",
-                  "education",
-                  "shopping",
-                ]}
-                value={expenseType}
-                onChange={(e) => setExpenseType(e.target.value)}
-              />
-              <Description
-                description={description}
-                setDescription={setDescription}
-              />
-            </>
-          )}
-        </div>
+        <div>{selectCategoryFields()}</div>
         <Button
           name={`Add Transaction ${inputValue}`}
           bgColor="bg-[var(--accent-primary-text)]"
