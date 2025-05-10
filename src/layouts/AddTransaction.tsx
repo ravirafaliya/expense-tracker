@@ -188,12 +188,20 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
           <Button
             name="Income"
             onClick={handleIncomeClick}
-            bgColor="bg-[var(--accent-primary)]"
+            bgColor={
+              incomeButtonClicked
+                ? "bg-[var(--accent-income-clickBg)]"
+                : "bg-[var(--accent-income-bg)]"
+            }
           />
           <Button
             name="Expense"
             onClick={handleExpenseClick}
-            bgColor="bg-[var(--accent-secondary)]"
+            bgColor={
+              expenseButtonClicked
+                ? "bg-[var(--accent-expense-clickBg)]"
+                : "bg-[var(--accent-expense-bg)]"
+            }
           />
         </div>
         <div>
