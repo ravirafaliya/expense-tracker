@@ -21,7 +21,8 @@ const TransactionHistory = ({
   showEditButton = false,
 }: TransactionHistoryProps) => {
   const editTransaction = useContext(EditContext);
-  console.log(editTransaction);
+
+  console.log(transactions);
 
   const handleEditButtonClick = (transaction: Transaction) => {
     editTransaction.setItem(transaction);
@@ -86,6 +87,16 @@ const TransactionHistory = ({
           ))}
         </tbody>
       </table>
+      <div className="flex justify-center items-center">
+        {transactions.length === 0 && (
+          <p className="text-center text-[var(--accent-primary-text)] m-4">
+            No transactions available.
+          </p>
+        )}
+        {transactions.length > 0 && (
+          <div className="w-fit text-center text-xl text-[var(--accent-primary-text)] font-semibold text-shadow-2xs border-none outline-none mt-3 ">{`Total Transaction : ${transactions.length}`}</div>
+        )}
+      </div>
     </div>
   );
 };

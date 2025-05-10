@@ -51,47 +51,55 @@ const Report = () => {
           Financial Report
         </h2>
         <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex-1 bg-[var(--accent-primary-bg)] shadow-lg rounded-lg p-4">
-            <ResponsiveContainer width="100%" height={400}>
-              <PieChart>
-                <Pie
-                  data={data}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  fill="#8884d8"
-                  label={(entry) => {
-                    const iconMap: { [key: string]: string } = {
-                      Income: "💰",
-                      Expense: "💸",
-                      Balance: "🧾",
-                    };
-                    return `${iconMap[entry.name]} ${entry.name} 
+          {transactions.length === 0 && (
+            <p className="text-center text-[var(--accent-primary-text)] m-4">
+              No transactions available.
+            </p>
+          )}
+
+          {transactions.length && (
+            <div className="flex-1 bg-[var(--accent-primary-bg)] shadow-lg rounded-lg p-4">
+              <ResponsiveContainer width="100%" height={400}>
+                <PieChart>
+                  <Pie
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    label={(entry) => {
+                      const iconMap: { [key: string]: string } = {
+                        Income: "💰",
+                        Expense: "💸",
+                        Balance: "🧾",
+                      };
+                      return `${iconMap[entry.name]} ${entry.name} 
                     `;
-                  }}
-                >
-                  {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value: number, name: string) => {
-                    const iconMap: { [key: string]: string } = {
-                      Income: "💰",
-                      Expense: "💸",
-                      Balance: "🧾",
-                    };
-                    return [`₹${value}`, `${iconMap[name]} ${name}`];
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+                    }}
+                  >
+                    {data.map((_, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: number, name: string) => {
+                      const iconMap: { [key: string]: string } = {
+                        Income: "💰",
+                        Expense: "💸",
+                        Balance: "🧾",
+                      };
+                      return [`₹${value}`, `${iconMap[name]} ${name}`];
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
 
           <div className="flex-1 grid grid-cols-1 gap-4">
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
