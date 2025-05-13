@@ -12,7 +12,8 @@ const TransactionDetails = () => {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
-  useEffect(() => {
+  // Function to update state from localStorage
+  const updateTransactionLocalStorage = () => {
     const storedTransactions = localStorage.getItem("transactions");
     if (storedTransactions) {
       const parsed = JSON.parse(storedTransactions);
@@ -29,6 +30,35 @@ const TransactionDetails = () => {
       setIncome(totalIncome);
       setExpense(totalExpense);
     }
+  };
+
+  useEffect(() => {
+    // Initial load
+    updateTransactionLocalStorage();
+
+    // Create custom event listener for current tab
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "transactions") {
+        updateTransactionLocalStorage();
+      }
+    };
+
+    // Listen for storage events (from other tabs)
+    window.addEventListener("storage", handleStorageChange);
+
+    // Override localStorage.setItem to detect changes in current tab
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function (key, value) {
+      originalSetItem.apply(this, [key, value]);
+      if (key === "transactions") {
+        updateTransactionLocalStorage();
+      }
+    };
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      localStorage.setItem = originalSetItem; // Restore original
+    };
   }, []);
 
   const balance = income - expense;
