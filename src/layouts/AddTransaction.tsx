@@ -5,6 +5,7 @@ import SelectBox from "../components/comp-addTransaction/SelectBox";
 import Description from "../components/comp-addTransaction/Description";
 import { useContext, useEffect } from "react";
 import { EditContext } from "../context/EditContext";
+import { supabase } from "../supabaseClient";
 
 type AddTransactionProps = {
   onAddTransaction: (transaction: {
@@ -37,12 +38,55 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
     setIncomeButtonClicked(false);
   };
 
-  const handleAddTransaction = () => {
-    // console.log("Add Transaction clicked");
-    // console.log("Input Value:", inputValue);
-    // console.log("Income Type:", incomeType);
-    // console.log("Expense Type:", expenseType);
+  // const handleAddTransaction = () => {
+  //   const transactionDetails = () => {
+  //     if (!incomeButtonClicked && !expenseButtonClicked) {
+  //       alert("Please select a transaction type - 'Income' or 'Expense'");
+  //       return;
+  //     }
+  //     if (!inputValue) {
+  //       alert("Please enter a valid amount");
+  //       return;
+  //     }
+  //     if (Number(inputValue) <= 0) {
+  //       alert("Please enter a positive number for the amount");
+  //       return;
+  //     }
+  //     if (!description) {
+  //       alert("Please enter a description");
+  //       return;
+  //     }
 
+  //     if (incomeButtonClicked) {
+  //       return {
+  //         type: "Income",
+  //         amount: inputValue,
+  //         category: incomeType,
+  //         description: description,
+  //       };
+  //     } else if (expenseButtonClicked) {
+  //       return {
+  //         type: "Expense",
+  //         category: expenseType,
+  //         amount: inputValue,
+  //         description: description,
+  //       };
+  //     }
+  //   };
+
+  //   const details = transactionDetails();
+  //   if (!details) return;
+
+  //   onAddTransaction(details);
+  //   setInputValue("");
+  //   setIncomeType("salary");
+  //   setExpenseType("food");
+  //   setIncomeButtonClicked(false);
+  //   setExpenseButtonClicked(false);
+  //   setDescription("");
+  // };
+
+  const handleAddTransaction = async () => {
     const transactionDetails = () => {
       if (!incomeButtonClicked && !expenseButtonClicked) {
         alert("Please select a transaction type - 'Income' or 'Expense'");
@@ -88,6 +132,13 @@ const AddTransaction = ({ onAddTransaction }: AddTransactionProps) => {
     setIncomeButtonClicked(false);
     setExpenseButtonClicked(false);
     setDescription("");
+
+    // Add to Supabase
+    const { error } = await supabase.from("transaction").insert([details]);
+
+    if (error) {
+      console.error("Error inserting data:", error);
+    }
   };
 
   useEffect(() => {
