@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 
 const Header = () => {
   return (
-    <div className="w-full bg-[var(--accent-primary-bg)] flex flex-col md:flex-row justify-between items-center p-3">
+    <div className="w-full bg-[var(--accent-primary-bg)] flex flex-col md:flex-row justify-between items-center pb-2 md:pb-0 lg:pb-0">
       <a
         href="/"
         className="flex items-start justify-center flex-col cursor-pointer p-3 text-center md:text-left"

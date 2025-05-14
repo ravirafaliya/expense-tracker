@@ -64,13 +64,7 @@ const TransactionDetails = () => {
   const balance = income - expense;
 
   return (
-    <div className="flex-1 grid grid-cols-1 gap-4">
-      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-        <p className="text-lg font-semibold text-gray-600">
-          📊 Total Transactions
-        </p>
-        <p className="text-2xl font-bold">{transactions.length}</p>
-      </div>
+    <div className="flex-1 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1">
       <div className="p-4 bg-green-100 rounded-lg shadow-md">
         <p className="text-lg font-semibold text-green-600">💰 Total Income</p>
         <p className="text-2xl font-bold">₹{income}</p>
@@ -78,6 +72,12 @@ const TransactionDetails = () => {
       <div className="p-4 bg-red-100 rounded-lg shadow-md">
         <p className="text-lg font-semibold text-red-600">💸 Total Expense</p>
         <p className="text-2xl font-bold">₹{expense}</p>
+      </div>
+      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+        <p className="text-lg font-semibold text-gray-600">
+          📊 Total Transactions
+        </p>
+        <p className="text-2xl font-bold">{transactions.length}</p>
       </div>
       <div className="p-4 bg-blue-100 rounded-lg shadow-md">
         <p className="text-lg font-semibold text-blue-600">

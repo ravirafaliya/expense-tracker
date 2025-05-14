@@ -45,11 +45,11 @@ const Home = () => {
 
   return (
     <>
-      <header>
+      <header className="fixed top-0 z-10 w-full">
         <Header />
       </header>
       <EditProvider>
-        <section className="p-4">
+        <section className="p-4 mt-30 md:mt-20 lg:mt-24">
           <div className="flex flex-col lg:flex-row">
             <section className="w-full lg:w-1/2 p-4">
               <AddTransaction onAddTransaction={handleAddTransaction} />
