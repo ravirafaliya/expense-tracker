@@ -58,6 +58,7 @@ const Transaction = () => {
           transactions={transactions}
           onDeleteTransaction={handleDeleteButton}
           showEditButton={false}
+          deleteLabel="Delete"
         />
       </div>
       {showQuote && (

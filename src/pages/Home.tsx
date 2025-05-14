@@ -63,6 +63,7 @@ const Home = () => {
               transactions={transactions}
               onDeleteTransaction={handleDeleteButton}
               showEditButton={true}
+              deleteLabel="Edit/Delete"
             />
           </div>
         </section>

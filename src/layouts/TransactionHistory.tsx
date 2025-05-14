@@ -13,12 +13,14 @@ type TransactionHistoryProps = {
   transactions: Transaction[];
   onDeleteTransaction: (index: number) => void;
   showEditButton?: boolean;
+  deleteLabel?: string;
 };
 
 const TransactionHistory = ({
   transactions,
   onDeleteTransaction,
   showEditButton = false,
+  deleteLabel,
 }: TransactionHistoryProps) => {
   const editTransaction = useContext(EditContext);
 
@@ -51,7 +53,7 @@ const TransactionHistory = ({
               <th className="px-2 sm:px-4 py-2">Amount</th>
               <th className="px-2 sm:px-4 py-2 bg-amber-50">Category</th>
               <th className="px-2 sm:px-4 py-2">Description</th>
-              <th className="px-2 sm:px-4 py-2 bg-amber-50">Edit/Delete</th>
+              <th className="px-2 sm:px-4 py-2 bg-amber-50">{deleteLabel}</th>
             </tr>
           </thead>
           <tbody>
